@@ -29,8 +29,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: List installed packages
+        run: ls -la node_modules/.bin/ | head -20
+
       - name: Build
-        run: ./node_modules/.bin/vite build
+        run: npm exec -- vite build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
