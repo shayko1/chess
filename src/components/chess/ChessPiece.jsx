@@ -6,7 +6,7 @@ const PIECE_THEMES = {
     king: { emoji: '🦄', name: 'מלך החד-קרן' },
     queen: { emoji: '👸', name: 'מלכת הקסם' },
     rook: { emoji: '🏰', name: 'מגדל הקסמים' },
-    bishop: { emoji: '🧙‍♀️', name: 'קוסמת' },
+    bishop: { emoji: '🧚‍♀️', name: 'פיה' },
     knight: { emoji: '🦋', name: 'פגסוס' },
     pawn: { emoji: '🌸', name: 'חד-קרן קטן' }
   },
@@ -14,7 +14,7 @@ const PIECE_THEMES = {
     king: { emoji: '🐉', name: 'מלך הדרקונים' },
     queen: { emoji: '🧝‍♀️', name: 'מלכת הצללים' },
     rook: { emoji: '🗼', name: 'מגדל האבן' },
-    bishop: { emoji: '🧙', name: 'קוסם' },
+    bishop: { emoji: '🧙‍♂️', name: 'מכשף' },
     knight: { emoji: '🦅', name: 'עיט' },
     pawn: { emoji: '🔮', name: 'גביש קסום' }
   }
