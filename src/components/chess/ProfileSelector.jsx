@@ -4,7 +4,7 @@ import { Plus, User, Trophy, Star, X, Check } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const AVATARS = ['🦄', '🐉', '🧙‍♀️', '👸', '🦋', '🦅', '🏰', '🌸', '🔮', '⭐'];
+const AVATARS = ['🦄', '🐉', '🧙‍♀️', '👸', '🦋', '🦅', '🏰', '🌸', '🔮', '⭐', '🦁', '🐯', '🐼', '🐨', '🐸', '🐙'];
 
 export default function ProfileSelector({ 
   profiles, 
@@ -52,22 +52,22 @@ export default function ProfileSelector({
           <motion.button
             key={profile.id}
             className={`
-              flex items-center gap-2 px-4 py-3 rounded-2xl transition-all border
+              flex flex-col items-center gap-2 px-6 py-4 rounded-3xl transition-all border-2 min-w-[100px]
               ${selectedProfile?.id === profile.id 
-                ? 'bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white border-white/50 shadow-[0_0_15px_rgba(168,85,247,0.5)] scale-105' 
+                ? 'bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 text-white border-white shadow-[0_10px_20px_rgba(168,85,247,0.4)] scale-110 -rotate-2 z-10' 
                 : isWhite 
-                  ? 'bg-white/60 hover:bg-white/90 text-purple-900 border-white/50 shadow-sm' 
-                  : 'bg-indigo-950/40 hover:bg-indigo-900/60 border-indigo-500/30 text-indigo-100'}
+                  ? 'bg-white/70 hover:bg-white text-purple-900 border-white/60 shadow-md hover:scale-105' 
+                  : 'bg-indigo-950/60 hover:bg-indigo-900/80 border-indigo-500/30 text-indigo-100 hover:scale-105'}
             `}
             onClick={() => onSelect(profile)}
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: selectedProfile?.id === profile.id ? 1.15 : 1.05, y: -5 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="text-2xl drop-shadow-md">{profile.avatar}</span>
-            <span className="font-bold">{profile.name}</span>
+            <span className="text-4xl drop-shadow-lg filter transition-transform duration-300 hover:rotate-12">{profile.avatar}</span>
+            <span className="font-bold text-lg">{profile.name}</span>
             {profile.wins > 0 && (
-              <span className="flex items-center text-xs bg-black/10 px-1.5 py-0.5 rounded-full">
-                <Trophy className="w-3 h-3 text-yellow-400 mr-1" />
+              <span className="flex items-center text-xs bg-black/20 px-2 py-1 rounded-full font-bold backdrop-blur-sm">
+                <Trophy className="w-3 h-3 text-yellow-300 mr-1" />
                 {profile.wins}
               </span>
             )}

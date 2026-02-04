@@ -303,7 +303,14 @@ export default function ChessPage() {
   };
 
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center p-4" dir="rtl">
+    <div className="min-h-[80vh] flex flex-col items-center justify-center p-4 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50" dir="rtl">
+      
+      {/* Magical Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" />
+        <div className="absolute top-20 right-20 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000" />
+      </div>
 
       {/* Back Button */}
       {step !== 'mode' && (
@@ -311,9 +318,9 @@ export default function ChessPage() {
           <Button
             variant="ghost"
             onClick={handleBack}
-            className="text-slate-500 hover:text-purple-600"
+            className="text-slate-600 hover:text-purple-700 hover:bg-purple-100 rounded-full px-6 py-6 text-lg font-bold transition-all transform hover:scale-105"
           >
-            <ArrowRight className="w-4 h-4 ml-2" />
+            <ArrowRight className="w-6 h-6 ml-2" />
             חזרה
           </Button>
         </div>
@@ -330,8 +337,8 @@ export default function ChessPage() {
             exit={{ opacity: 0, x: -50 }}
             className="text-center space-y-8"
           >
-            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-500">
-              איזה סוג משחק נשחק היום?
+            <h2 className="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-500 drop-shadow-sm">
+              במה נשחק היום? 🎲
             </h2>
             <GameModeSelector mode={gameMode} onChange={handleModeSelect} />
           </motion.div>
@@ -347,10 +354,10 @@ export default function ChessPage() {
             className="w-full max-w-2xl space-y-6"
           >
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-slate-800">
-                {gameMode === 'online' ? 'בחר את הפרופיל שלך' : 'מי משחק בלבן?'}
+              <h2 className="text-4xl font-black text-slate-800 mb-2">
+                {gameMode === 'online' ? 'בחר את הפרופיל שלך' : 'מי השחקן הלבן? 👑'}
               </h2>
-              <p className="text-slate-500">
+              <p className="text-xl text-slate-600 font-medium">
                 {gameMode === 'online' ? 'זה יהיה השם שלך במשחק' : 'השחקן הלבן מתחיל ראשון!'}
               </p>
             </div>
@@ -408,8 +415,8 @@ export default function ChessPage() {
             className="w-full max-w-4xl space-y-8"
           >
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-slate-800">מי משחק בשחור?</h2>
-              <p className="text-slate-500">בחרו חבר או שחקו נגד המחשב</p>
+              <h2 className="text-4xl font-black text-slate-800 mb-2">מי השחקן השחור? 🎩</h2>
+              <p className="text-xl text-slate-600 font-medium">בחרו חבר או שחקו נגד המחשב</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

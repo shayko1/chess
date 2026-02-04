@@ -51,20 +51,20 @@ export default function AISelector({ selectedLevel, onSelect }) {
             <motion.button
               key={level.id}
               className={`
-                flex flex-col items-center gap-2 p-3 rounded-2xl transition-all border
+                flex flex-col items-center gap-4 p-6 rounded-[1.5rem] transition-all border-2
                 ${isSelected 
-                  ? `bg-gradient-to-b ${level.color} text-white border-white/40 shadow-[0_0_20px_rgba(139,92,246,0.4)] scale-105 ring-2 ring-white/30` 
-                  : 'bg-white/60 text-indigo-900 border-white/50 hover:bg-white/90 hover:shadow-lg'}
+                  ? `bg-gradient-to-b ${level.color} text-white border-white shadow-[0_10px_30px_rgba(139,92,246,0.3)] scale-110 ring-4 ring-white/30` 
+                  : 'bg-white/80 text-indigo-900 border-white hover:bg-white hover:scale-105 hover:shadow-xl'}
               `}
               onClick={() => onSelect(level.id)}
-              whileHover={{ scale: 1.05, y: -4 }}
+              whileHover={{ scale: isSelected ? 1.12 : 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className={`text-4xl filter ${isSelected ? 'drop-shadow-md' : 'grayscale-[0.3]'}`}>{level.emoji}</div>
+              <div className={`text-6xl filter transition-all duration-300 ${isSelected ? 'drop-shadow-lg scale-110 rotate-6' : 'grayscale-[0.5]'}`}>{level.emoji}</div>
               
               <div className="text-center">
-                <span className="font-bold block text-base mb-0.5">{level.name}</span>
-                <span className={`text-[10px] leading-tight block ${isSelected ? 'text-white/90' : 'text-indigo-900/60'}`}>
+                <span className="font-black block text-xl mb-1">{level.name}</span>
+                <span className={`text-xs font-bold leading-tight block ${isSelected ? 'text-white/90' : 'text-indigo-900/60'}`}>
                   {level.description}
                 </span>
               </div>
