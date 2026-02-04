@@ -433,11 +433,12 @@ export default function ChessPage() {
                   <div className="flex justify-center p-10"><Loader2 className="animate-spin text-purple-500" /></div>
                 ) : (
                   <ProfileSelector
-                    profiles={profiles.filter(p => p.id !== whitePlayer?.id)}
+                    profiles={profiles.filter(p => p.id !== whitePlayer?.id && p.avatar !== whitePlayer?.avatar)}
                     selectedProfile={blackPlayer}
                     onSelect={handleBlackSelect}
                     onCreate={(data) => createProfileMutation.mutateAsync(data)}
                     position="black"
+                    excludeAvatar={whitePlayer?.avatar}
                   />
                 )}
               </div>

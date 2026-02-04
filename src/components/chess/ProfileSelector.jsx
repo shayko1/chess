@@ -11,7 +11,8 @@ export default function ProfileSelector({
   selectedProfile, 
   onSelect, 
   onCreate,
-  position = "white" 
+  position = "white",
+  excludeAvatar = null
 }) {
   const [showCreate, setShowCreate] = useState(false);
   const [newName, setNewName] = useState('');
@@ -115,20 +116,27 @@ export default function ProfileSelector({
             <div className="mb-3">
               <p className="text-sm mb-2 opacity-70">בחר אווטאר:</p>
               <div className="flex flex-wrap gap-2">
-                {AVATARS.map(avatar => (
+                {AVATARS.map(avatar => {
+                  const isExcluded = avatar === excludeAvatar;
+                  return (
                   <button
                     key={avatar}
+                    disabled={isExcluded}
                     className={`
                       w-10 h-10 rounded-xl text-2xl flex items-center justify-center transition-all
                       ${newAvatar === avatar 
                         ? 'bg-gradient-to-r from-purple-500 to-pink-500 scale-110 shadow-lg' 
-                        : isWhite ? 'bg-purple-100 hover:bg-purple-200' : 'bg-purple-700 hover:bg-purple-600'}
+                        : isExcluded
+                          ? 'opacity-30 cursor-not-allowed grayscale bg-gray-200'
+                          : isWhite ? 'bg-purple-100 hover:bg-purple-200' : 'bg-purple-700 hover:bg-purple-600'}
                     `}
-                    onClick={() => setNewAvatar(avatar)}
+                    onClick={() => !isExcluded && setNewAvatar(avatar)}
+                    title={isExcluded ? 'כבר בשימוש על ידי השחקן השני' : ''}
                   >
                     {avatar}
                   </button>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
