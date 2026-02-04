@@ -40,6 +40,7 @@ export default function ChessPiece({ piece, isSelected, onClick, isInDanger }) {
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
+      layout // Enable layout animation for smooth movement
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       {/* Glow effect for selected piece */}

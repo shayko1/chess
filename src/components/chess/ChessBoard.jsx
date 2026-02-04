@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getBestMove } from '@/lib/stockfish';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import confetti from 'canvas-confetti'; // Import confetti
 import ChessPiece from './ChessPiece';
 import MoveExplanation from './MoveExplanation';
 import CheckAlert from './CheckAlert';
@@ -463,15 +464,44 @@ export default function ChessBoard({
       setSparklePos({ row, col });
       setTimeout(() => setSparklePos(null), 1000);
 
+      // Trigger confetti on capture
+      if (newBoard[row][col] && board[row][col]) { // If destination has a piece (capture)
+         confetti({
+            particleCount: 30,
+            spread: 40,
+            origin: { 
+                x: (col + 1) / 9, // Approximate x position
+                y: (row + 1) / 9  // Approximate y position
+            },
+            colors: ['#FF69B4', '#9370DB'] // Pink/Purple for magic capture
+         });
+      }
+
       const nextTurn = currentTurn === 'white' ? 'black' : 'white';
 
       // Check for check/checkmate
       const check = isKingInCheck(newBoard, nextTurn);
       if (check) {
         setCheckInfo(check);
+        
+        // Trigger confetti for check
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.6 },
+          colors: ['#FFD700', '#FFA500'] // Gold/Orange for check
+        });
+
         if (isCheckmate(newBoard, nextTurn)) {
           setGameStatus(currentTurn === 'white' ? 'white_wins' : 'black_wins');
           onGameEnd?.(currentTurn);
+          
+          // Big confetti for checkmate
+          confetti({
+            particleCount: 200,
+            spread: 160,
+            origin: { y: 0.6 }
+          });
         }
       } else {
         setCheckInfo(null);
@@ -633,22 +663,26 @@ export default function ChessBoard({
         <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iY2xvdWRzIiB4PSIwIiB5PSIwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzAiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN4PSIxNTAiIGN5PSIxMDAiIHI9IjQwIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC4yIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2Nsb3VkcykiLz48L3N2Zz4=')]" />
         
         {/* Floating magical particles */}
-        {[...Array(8)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-yellow-300 rounded-full"
+            className={`absolute rounded-full ${i % 2 === 0 ? 'bg-yellow-300' : 'bg-pink-300'}`}
             style={{
-              left: `${10 + i * 12}%`,
-              top: `${5 + (i % 3) * 15}%`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: Math.random() * 6 + 2 + 'px',
+              height: Math.random() * 6 + 2 + 'px',
             }}
             animate={{
-              y: [0, -20, 0],
-              opacity: [0.5, 1, 0.5],
+              y: [0, -30, 0],
+              x: [0, Math.random() * 20 - 10, 0],
+              opacity: [0.3, 0.8, 0.3],
+              scale: [1, 1.2, 1],
             }}
             transition={{
-              duration: 3 + i * 0.5,
+              duration: 3 + Math.random() * 4,
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: Math.random() * 2,
             }}
           />
         ))}
@@ -658,8 +692,9 @@ export default function ChessBoard({
           {/* Board frame - magical crystal */}
           <div className="absolute inset-2 bg-gradient-to-br from-purple-400/30 to-pink-400/30 rounded-2xl blur-xl" />
           
-          <div className="relative bg-gradient-to-br from-purple-200/40 via-white/50 to-pink-200/40 backdrop-blur-sm p-3 sm:p-4 rounded-2xl border-4 border-white/60 shadow-[0_0_40px_rgba(168,85,247,0.3)]">
-            <div className="grid grid-cols-8 gap-0.5 rounded-xl overflow-hidden relative"
+          <div className="relative bg-gradient-to-br from-purple-200/40 via-white/50 to-pink-200/40 backdrop-blur-sm p-3 sm:p-4 rounded-2xl border-4 border-white/60 shadow-[0_0_40px_rgba(168,85,247,0.3)] transform-style-3d perspective-1000">
+            <div className="grid grid-cols-8 gap-0.5 rounded-xl overflow-hidden relative transform transition-transform duration-500 hover:rotate-x-2 hover:rotate-y-2"
+                 style={{ transformStyle: 'preserve-3d' }}
                  onMouseLeave={() => {
                    if (hoverTimeout) clearTimeout(hoverTimeout);
                    setHoveredSquare(null);
